@@ -1,0 +1,138 @@
+\documentclass{article}
+
+\usepackage{amsfonts, amssymb, amsmath}
+
+\author{Matthew Dupraz}
+\title{Exercise sheet 2 - Bonus}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{(1)}
+
+Let $f = f_1\cdots f_n$.
+We'll show
+$$0 = (f_1\cdots f_n)/(f) \subset
+(f_1\cdots f_{n-1})/(f) \subset \dots \subset
+(f_1)/(f) \subset R/(f)$$
+is the composition series of $R/(f)$, 
+which would imply $\mathrm{length}(R/(f)) = n$.
+
+By the correspondence theorem, the submodules of $R/(f)$ are
+in bijective correspondence with submodules $M$ of ${_RR}$ such that
+$(f) \subseteq M \subseteq {_RR}$, which is induced by the quotient
+homomorphism. Since $R$ is a PID, $M \subseteq {_RR}$ is of
+the form $(g)$ for $g \in R$. In particular, $g | f$.
+Hence, the submodules of $R/(f)$ are exactly the modules
+$(g)/(f)$ for $g|f$. Notice that for
+$M \subsetneq N \subseteq {_RR}$, we also
+have $M/(f) \subsetneq N/(f)$, because the correspondence is
+bijective.
+
+This implies that for any $k \in \{1, \dots n\}$, we have that
+$(f_1 \cdots f_k)/(f)$ is a maximal submodule of
+$(f_1 \cdots f_{k-1})/(f)$.
+Indeed, if $(f_1\cdots f_k)/(f) \subsetneq (g)/(f)
+\subsetneq (f_1 \cdots f_{k-1})/(f)$ for some $g|f$, then in
+particular, $(f_1\cdots f_k) \subsetneq (g)
+\subsetneq (f_1 \cdots f_{k-1})$
+and so $f_1 \cdots f_{k-1} | g$ and $g | f_1\cdots f_k$.
+This implies
+that either $g \sim f_1 \cdots f_{k-1}$ or
+$g \sim f_1 \cdots f_k$,
+both of which are absurd.
+This shows that
+$$0 = (f_1\dots f_n)/(f) \subsetneq
+(f_1\dots f_{n-1})/(f) \subsetneq \dots \subsetneq
+(f_1)/(f) \subsetneq R/(f)$$
+is a composition series of $R/(f)$.
+% continue from here
+
+%then $g | f_1$, but since $f_1$ is prime, this implies either 
+%$g \sim f_1$ or $g \sim 1$, either one of which is absurd.
+%Now, let $g = f_2 \dots f_{n+1}$,
+%we have that $(f_1)/(f) = (f_1)/(f_1)\cap(g) \cong
+%(f_1)+(g)/(g)$ by the second
+%isomorphism theorem. Since $f_1$ and $g$ are
+%relatively prime, we have that
+%$(f_1)+(g)/(g) 
+%= R/(g)$. By induction hypothesis,
+%$R/(g)$ is of length $n$ and since $(f_1)/(f) \cong R/(g)$
+%is maximal in $R/(f)$, we deduce $R/(f)$ is of length $n+1$ (since
+%we get a decomposition series of $R/(f)$ by just appending $R/(f)$
+%to the decomposition series of $R/(g)$, modulo isomorphism).
+
+\subsection*{(2)}
+
+Since $R[x]$ is a PID, if $f \in R[x]$ is irreductible,
+then it is prime. Let $f \in R[x]$ be a polynomial with exactly
+$n\geq 0$ non-real roots, and let $f=f_1 \cdots f_k$ be a
+decomposition of $f$ into irreductible factors.
+$f_i$ is either of degree 1 (if it has a real root),
+or of degree 2 (if it has two conjugate non-real roots).
+Hence we deduce that exactly $n/2$ of the irreductible 
+factors of $f$ are of degree 2.
+By part (1), $\mathrm{length}_{\R[x]}\left(\R[x]/(f)\right)
+= k$. We have seen in Anneaux et Corps, that
+$\mathrm{dim}_\R\left(\R[x]/(f)\right) = \mathrm{deg}(f) = 
+(n/2)\times2 + (k - n/2)\times1 = k + n/2$.
+Hence $\mathrm{dim}_\R\left(\R[x]/(f)\right) -
+\mathrm{length}_{\R[x]}\left(\R[x]/(f)\right) = n/2$.
+
+\subsection*{(3)}
+
+Let $M$ be a $\Z$-module. Suppose $M$ is finite. Then any strictly
+increasing chain of submodules $M_0 \subsetneq M_1 \subsetneq 
+\dots$ is of finite length. Hence $M$ is of finite length.
+
+Now suppose $M$ is infinite. There are two cases:
+\begin{enumerate}
+	\item $M$ is not finitely generated, then we can construct a
+		strict chain of finitely generated submodules of any length,
+		which we show by induction on the length $k$.
+		For the base case we just let
+		$M_0 = 0$. Now suppose we have defined $M_k$ for some $k$.
+		Then define $M_{k+1}$ by adjoining an element
+		$m_{k+1} \in M\setminus M_k$. By hypothesis $M_k$ is finitely
+		generated, so such an element exists. Furthermore,
+		$M_{k+1}$ is also finitely generated and
+		$M_k \subsetneq M_{k+1}$.
+
+		Since the length of $M$ is strictly larger than the length
+		of any strictly increasing chain of submodules, we deduce
+		that the length of $M$ has to be infinite.
+	\item $M$ is finitely generated, then if $\{m_1, \dots, m_n\}$
+		is a generating set, at least for one $i$, the submodule
+		$(m_i)$ has to be infinite (since $M$ is infinite;
+		alternatively, at least one of the factors that appear in the
+		decomposition given by the fundamental theorem of finitely
+		generated modules over a PID has to be $\Z$, hence there is
+		an element of infinite order).
+		Consider the chain of submodules
+		$(m_i) \supset (2m_i) \supset (3m_i) \supset \dots$.
+		If for any $k$, $(km_i) = ((k+1)m_i)$, then we have that
+		$km_i = n(k+1)m_i$ for some $n \in \Z$, in particular, 
+		$(k - n(k+1))m_i = 0$. Since $m_i$ is of infinite order, this
+		implies $(k - n(k + 1)) = 0$, but that's not satisfied for
+		any $k \geq 1$ and $n \in \Z$. Hence for all $k$,
+		$(km_i) \supsetneq ((k+1)m_i)$, and so we constructed an
+		infinite strictly decreasing chain of submodules.
+		This implies $M$ is of infinite length.	
+\end{enumerate}
+
+\subsection*{(4)}
+
+We can take for example $\R^2$ as a module over $\R$.
+Any 2 linearly independent elements of $\R^2$ generate $\R^2$, hence
+any strict chain of submodules of $\R^2$ is of length at most 2.
+So $\R^2$ is of finite length. It also has an infinite amount of
+submodules, for example $(1, x)\R$ is a submodule for any $x \in \R$
+and for $x, y \in \R$ distinct, $(1, x)\R \neq (1, y)\R$.
+
+
+\end{document}

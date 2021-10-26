@@ -1,0 +1,137 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{tikz-cd}
+
+\title{Sheet 4 - Bonus exercise}
+\author{Matthew Dupraz}
+
+\newcommand{\Frac}{\mathrm{Frac}}
+\newcommand{\Hom}[2]{\mathrm{Hom}_R(#1, #2)}
+\newcommand{\Ext}{\mathrm{Ext}_R}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\Ann}{\mathrm{Ann}}
+
+\begin{document}
+
+\maketitle
+
+Let $M$ be an $R$-module. We will say an element
+$m \in M\setminus 0$ is \emph{divisible} if for all
+$r \in R\setminus 0$,
+there exists an $n \in M$, such that $m = rn$.
+Hence a module is divisible iff all its elements are divisible.
+	
+\subsection*{(1)}
+
+Let $M$ be a non-trivial free $R$-module, we will show that
+$M$ contains no divisible elements.
+
+Let $\{m_i\}_{i \in I}$ be a basis of $M$, let 
+$r \in R\setminus 0$ which is not invertible.
+Let $m \in M$.
+Let $i_1, \dots, i_k \in I$ and $r_1, \dots, r_k \in R\setminus 0$
+such that $m = r_1m_{i_1} + \dots + r_km_{i_k}$.
+Suppose ad absurdum $m$ is divisible, then there exists
+$n \in M$ such that $r_1rn = m$.
+Let $j_1, \dots, j_l \in I$ and $s_1, \dots, s_l \in R\setminus 0$
+such that $n = s_1m_{j_1} + \dots + s_lm_{j_l}$.
+Then by the equality $r_1rn = m$ and linear independence of the
+basis elements, we get that $l = k$. Furthermore, we can suppose
+$i_t = j_t$ for all $t \in \{1, \dots, k\}$.
+Hence we also have that
+\[
+	(r_1rs_1 - r_1)m_{i_1} + \dots + (r_1rs_k - r_k)m_{i_k} = 0
+\]
+and by linear independence of the basis elements we obtain in
+particular $r_1rs_1 = r_1$ and since $M$ is an integral domain,
+$rs_1 = 1$, but this is absurd, since we supposed $r$ is not
+invertible. Hence $M$ contains no divisible elements, and as
+a consequence is also not divisible.
+
+\subsection*{(2)}
+
+Suppose ad absurdum $\Frac(R)$ is projective. Then there exists
+an $R$-module $M$, such that $\Frac(R)\oplus M$ is free.
+We have that every element of $\Frac(R)\setminus 0$ is divisible,
+since for any
+$\frac{p}{q} \in \Frac(R)$, any $r \in R$, we have that
+$r\frac{p}{rq}=\frac{p}{q}$.
+But we have shown that a non-trivial free $R$-module contains no
+divisible elements, and since
+$\Frac(R) \subseteq \Frac(R)\oplus M$,
+this is absurd. Hence $\Frac(R)$ is not projective.
+
+\subsection*{(3)}
+
+Let $M, N$ be $R$-modules. Let $P_\bullet$ be a projective
+resolution of $M$ and let $\psi: N\to N$ be an $R$-module
+homomorphism defined by $\psi(n) = rn$ for some fixed $r \in R$.
+We have that the following diagram commutes:
+\begin{equation*}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZAFgBoAGAXVJADcBDAGwFcYkRyQBfU9TXfIRRkAjNTpNW7Tjz7Y8BIgGYK4hizaIQAHW0AJCAFtgABQD65LsAByXbrxAZ5g5aTE11UrboPHzlmztZR34FIWQAJlUPSU0dfSNTMxErW3s5AUUUKPcJDXYfRPMUwPSQ5yzkEWi8r3jfJIjUoIcnTPDq3M84wr8zJtLgtrCichrugu0AYygIHAQh0JcUMa7YyZm5hfEYKABzeCJQADMAJyMkMZAcCCQmhzOLxGrr28QlYMfDJBVXpABWGL5bwJYzHZLNMpfO40G5IMi1Hqg4DgkppT7nb6IKJ-d5Auq9JIBXRobAtE6Y+Gwt6AxGTBrFKwkslQymIABs1KQAHZ8UiGf0mdpSVhySBoRyuYgABwYp683EATjlWNpcMQComIIa4IG6IebIR6s5dO1iV1kJVlylKUoXCAA
+\begin{tikzcd}[row sep=large,column sep=huge]
+\cdots & \Hom{P_2}{N} \arrow[d, "\Hom{P_2}{\psi}"] \arrow[l] & \Hom{P_1}{N} \arrow[d, "\Hom{P_1}{\psi}"] \arrow[l, "\Hom{f_2}{N}"] & \Hom{P_0}{N} \arrow[l, "\Hom{f_1}{N}"] \arrow[d, "\Hom{P_0}{\psi}"] & 0 \arrow[l] \arrow[d] \\
+\cdots & \Hom{P_2}{N} \arrow[l]                              & \Hom{P_1}{N} \arrow[l, "\Hom{f_2}{N}"]                              & \Hom{P_0}{N} \arrow[l, "\Hom{f_1}{N}"]                              & 0 \arrow[l]          
+\end{tikzcd}
+\end{equation*}
+Indeed, for any $i \in \mathbb{N}$, $f \in \Hom{P_i}{N}$,
+\begin{equation*}
+	\Hom{P_{i+1}}{\psi}\circ\Hom{f_{i+1}}{N}(f)
+	= \psi \circ f \circ f_{i+1}
+	= \Hom{P_{i+1}}{\psi}\circ\Hom{f_{i+1}}{N}(f)
+\end{equation*}
+Hence $\Hom{P_\bullet}{\psi}$ is a co-chain morphism.
+
+Furthermore, for any $i \in \mathbb{N}$, $f \in \Hom{P_i}{N}$,
+$\Hom{P_i}{\psi}(f) = \psi \circ f = rf$ and so $\Hom{P_i}{\psi}$
+is also just the multiplication by $r \in R$.
+By Proposition 5.4.10, $\Hom{P_\bullet}{\psi}$ induces an $R$-module
+homomorphism $\Ext^i(M, \psi): \Ext^i(M, N) \to \Ext^i(M, N)$, 
+$[f] \mapsto [\Hom{P_i}{\psi}(f)] = [rf] = r[f]$.
+We see from the definition that $\Ext^i(M, \psi)$ is independent
+of the projective resolution, and also corresponds simply to
+multiplication by $r$.
+
+\subsection*{(4)}
+
+Fix $r \in R$, let $\phi: M \to M$ be the multiplication by $r$.
+We will show that $\Ext^i(\phi, N)$ as in Definition 5.4.25
+is also the multiplication by $r$ on $\Ext^i(M, N)$.
+Let $P_\bullet$ be a projective resolution of $M$,
+then if we let $\phi_i: P_i \to P_i, x \mapsto rx$,
+we have that the following diagram commutes:
+\begin{equation*}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkQAFAfQCYQBfUuky58hFDwrU6TVu27EBQkBmx4CRAMxSaDFm0Scu5JcLViiAFh0z97ALIAdRwGMCAcwAEACWMAKbmcAI2ZGRhgcAEpTFRF1cWRrYmk9OUMnVw8ff0DHELCI6MEzUQ0UbWTdWQMjE2LY8zLkSUrbNKNFetVShLJW1JruPi64ixRyGwH2ZxcoCBwEEcaEif7q6dc5hYFpGCh3eCJQADMAJwgAWyQJkBwIJDI2muPeGLPLh5o7pEkn9hfOsp3ldEAAOL73RDkerApAATghSAA7DDziCkYjEAA2Kp2QwvYZAtFIHG3SEAVlx7QBb2JiEpZKQ1j++OMtI+iF+30Q2hZIBedSJHK5FKpNWcaAAFlg2aiOY9uaSpoYJdKuICTnSbtyMXzVTLCZqObzuczlSB9Tt+EA
+\begin{tikzcd}
+\cdots \arrow[r] & P_2 \arrow[r, "f_2"] \arrow[d, "\phi_2"] & P_1 \arrow[r, "f_1"] \arrow[d, "\phi_1"] & P_0 \arrow[r, "f_0"] \arrow[d, "\phi_0"] & M\cong H_0(P_\bullet) \arrow[d, "\phi"] \\
+\cdots \arrow[r] & P_2 \arrow[r, "f_2"]                     & P_1 \arrow[r, "f_1"]                     & P_0 \arrow[r, "f_0"]                     & M\cong H_0(P_\bullet)
+\end{tikzcd}
+\end{equation*}
+Indeed, since the $f_i$ are homomorphisms, for any $x \in P_i$,
+$f_i(rx) = rf_i(x)$. Hence, since such a chain is unique
+up to homotopy by Proposition 5.4.20, we have that
+$\Ext^i(\phi, N) := H^i(\Hom{\phi_\bullet}{N})$.
+For any $i \in \mathbb{N}$, $\Hom{\phi_i}{N}$ is just the
+multiplication by $r$, indeed for all $f \in \Hom{P_i}{N}$,
+$x \in P_i$, we have that $\Hom{\phi_i}{N}(f)(x) = f\circ\phi_i(x)
+= f(rx) = rf(x)$.
+Let $[\psi] \in \Ext^i(M, N)
+= \ker\Hom{f_{i+1}}{N}/\im\Hom{f_i}{N}$.
+Then we have that
+$H^i(\Hom{\phi_\bullet}{N})([\psi]) = [\Hom{\phi_i}{N}\psi]
+= [r\psi] = r[\psi]$.]
+We deduce that $\Ext^i(\phi, N) = H^i(\Hom{\phi_\bullet}{N})$
+is just multiplication by $r$.
+
+\subsection*{(5)}
+
+Suppose $N$ is such that $\Ann(N) \neq 0$. 
+We will show that $\Ext^i(\Frac(R), N) = 0$. Let $r \in \Ann(N)$,
+let $\phi \in \Hom{\Frac(R)}{N}$, then for any $x \in \Frac(R)$,
+we have that $\phi(x) = \phi(r\frac{x}{r})
+= r\phi(\frac{x}{r}) =  0$, and hence $\Hom{\Frac(R)}{N}$ is just 
+the zero module.
+
+\end{document}
