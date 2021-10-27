@@ -11,6 +11,7 @@
 \newcommand{\Hom}[2]{\mathrm{Hom}_R(#1, #2)}
 \newcommand{\Ext}{\mathrm{Ext}_R}
 \newcommand{\im}{\mathrm{im}}
+\newcommand{\id}{\mathrm{id}}
 \newcommand{\Ann}{\mathrm{Ann}}
 
 \begin{document}
@@ -129,9 +130,52 @@ is just multiplication by $r$.
 
 Suppose $N$ is such that $\Ann(N) \neq 0$. 
 We will show that $\Ext^i(\Frac(R), N) = 0$. Let $r \in \Ann(N)$,
-let $\phi \in \Hom{\Frac(R)}{N}$, then for any $x \in \Frac(R)$,
-we have that $\phi(x) = \phi(r\frac{x}{r})
-= r\phi(\frac{x}{r}) =  0$, and hence $\Hom{\Frac(R)}{N}$ is just 
-the zero module.
+Define $\phi: \Frac(R) \to \Frac(R)$ and $\psi: N \to N$ 
+in both cases to be the multiplication by $r \in R$.
+We have that both $\Ext^i(\Frac(R), \psi)$ and
+$\Ext^i(\phi, N)$ are just the multiplication by $r \in R$ by
+previous exercises, and so
+$\Ext^i(\Frac(R), \psi) = \Ext^i(\phi, N)$.
+We have that $\Ext^i(\Frac(R), \psi) = 0$, since 
+$\psi$ is the zero map on $N$ (since $r\in \Ann(N)$), and hence
+$\Ext^i(\Frac(R), \psi)([f]) = [\Hom{P_i}{\psi}(f)] = [rf] = 0$ for
+all $[f] \in \Ext^i(\Frac(R), N)$.
+
+Furthermore, we have that $\phi$ is an isomorphism of inverse
+$\phi^{-1}(x) = r^{-1}x$. We will show that this implies that
+$\Ext^i(\phi, N)$ is an isomorphism.
+Let $P_\bullet$ be a projective resolution of $\Frac(R)$.
+Let $\alpha_\bullet, \beta_\bullet: P_\bullet \to P_\bullet$ be the
+morphisms of chain complexes given by Theorem 5.4.20 for the
+homomorphisms $\phi$, $\phi^{-1}$ respectively, then
+we have that $H_0(\alpha_\bullet) = \phi$, 
+$H_0(\beta_\bullet) = \phi^{-1}$
+and hence $H_0(\alpha_\bullet \circ \beta_\bullet) = 
+H_0(\alpha_\bullet) \circ H_0(\beta_\bullet) = \phi \circ \phi^{-1}
+= \id_{\Frac(R)}$.
+But we also have that $H_0(\id_\bullet) = \id_{\Frac(R)}$, where
+$\id_\bullet: P_\bullet \to P_\bullet$ is just the identity
+chain complex morphism.
+Hence we get that $\id_\bullet$ and
+$\alpha_\bullet \circ \beta_\bullet$ are homotopy equivalent
+by the unicity part of Theorem 5.4.20.
+We deduce $\Hom{\alpha_\bullet\circ\beta_\bullet}{N}$ and
+$\Hom{\id_\bullet}{N}$ are homotopy equivalent by Remark 5.4.15.
+This implies in particular that
+$\Ext^i(\phi, N)\circ \Ext^i(\phi^{-1}, N) = 
+H^i(\Hom{\alpha_\bullet}{N}) \circ H^i(\Hom{\beta_\bullet}{N})
+= H^i(\Hom{\alpha_\bullet}{N}\circ \Hom{\beta_\bullet}{N})
+= H^i(\Hom{\alpha_\bullet \circ \beta_\bullet}{N})
+= H^i(\Hom{\id_\bullet}{N}) = H^i(\id_{\Hom{P_\bullet}{N}})
+= \id_{H^i(\Hom{P_\bullet}{N})}$
+Similarly, we also deduce
+$\Ext^i(\phi^{-1}, N)\circ \Ext^i(\phi, N) = 
+H^i(\Hom{\beta_\bullet}{N}) \circ H^i(\Hom{\alpha_\bullet}{N})
+= \id_{H^i(\Hom{P_\bullet}{N})}$.
+Hence $\Ext^i(\phi, N)$ is an isomorphism.
+
+Now, since $\Ext^i(\phi, N)$ is an isomorphism, and also the
+trivial homomorphism, we deduce that we must have
+$\Ext^i(\Frac(R), N) = 0$.
 
 \end{document}
