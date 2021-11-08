@@ -1,0 +1,315 @@
+\documentclass{article}
+
+\usepackage{amssymb, amsmath, amsfonts, amsthm}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{tikz-cd}
+
+\newcommand{\Frac}{\mathrm{Frac}}
+\newcommand{\Hom}[2]{\mathrm{Hom}_R(#1, #2)}
+\newcommand{\Ext}{\mathrm{Ext}_R}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Ann}{\mathrm{Ann}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newtheorem{claim}{Claim}
+
+\title{Exercise sheet 6 - Bonus exercise}
+\author{Matthew Dupraz}
+
+\begin{document}
+	
+\maketitle
+
+\subsection*{(1)}
+
+We define $I^k$ and $i^k: I^k \to I^{k+1}$ inductively.
+
+By the Lemma, there exists an injective $R$-module homomorphism
+$i^{-1}: N \to I^0$, where $I^0$ is an injective $R$-module.
+Now, suppose we have defined $I^k$ and $i^{k-1}$
+for some $k \in \N$, then by the Lemma, there exists an injective
+$R$-module homomorphism $\hat{i}^k: I^k/\im i^{k-1} \to I^{k+1}$,
+where $I^{k+1}$ is an injective $R$-module.
+By composing $\hat{i}^k$ with the quotient map
+$q_k: I^k \to I^k/\im i^{k-1}$, we obtain an
+$R$-homomorphism $i^k: I^k \to I^{k+1}$.
+We have that $\ker{i^k} = \ker(\hat{i}^k \circ q_i)
+= q_i^{-1}(\ker \hat{i}^k) = q_i^{-1}(0) = \im i^{k-1}$.
+Hence we have that the sequence
+\begin{equation*}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRGJAF9T1Nd9CKAIzkqtRizYA5LjxAZseAkQBMo6vWatEIAJIA9Dt16KBRAMzrxWtgaGyT-ZSgAsVzZJ0AdLwGMoEDgInGIwUADm8ESgAGYAThAAtkhkIDgQSELGIPFJmdTpSGrWniBY+sAAtFkOOQnJiMWFiJYl2mWGtbkNrc1ubWzl9iGcQA
+\begin{tikzcd}
+0 \arrow[r] & N \arrow[r, "i^{-1}"] & I^0 \arrow[r, "i^0"] & I^1 \arrow[r, "i^1"] & \cdots
+\end{tikzcd}
+\end{equation*}
+is exact and so $I^\bullet$ is an injective resolution of $N$.
+
+\subsection*{(2)}
+
+Suppose $I$ is an injective $R$-module. Let
+$0 \to A \xrightarrow{\alpha} B \xrightarrow{\beta} C \to 0$ be 
+a short exact sequence of $R$-modules. Applying
+$\Hom{-}{I}$, we get
+\begin{equation*}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRGJAF9T1Nd9CKAIzkqtRizYAdKQAkIAW2ABBTsACSnLjxAZseAkQDMo6vWatEIGfKUBhNZu299AogBZT4i2w7cX-IYoAExe5pJWNorAAEKOWpxiMFAA5vBEoABmAE6KSCYgOBBIwf4gOXmIoYXFiJ7eEdZy0TIARjA4dPEg1Ax07QwACnwGgiDZWCkAFjjO5bkKSPVFSCINlk22wDKMaFNdGmpavf0wQyNuVhPTs2UVi4hrK4jEiZxAA
+\begin{tikzcd}[row sep=large,column sep=huge]
+0 & \Hom{A}{I} \arrow[l] & \Hom{B}{I} \arrow[l, "\Hom{\alpha}{I}{}"'] & \Hom{C}{I} \arrow[l, "\Hom{\beta}{I}"'] & 0 \arrow[l]
+\end{tikzcd}
+\end{equation*}
+To show this sequence is exact, it suffices to show
+$\Hom{\alpha}{I}$ is surjective, as we know $\Hom{-}{I}$ is
+left-exact.
+Let $\gamma \in \Hom{A}{I}$,
+then by injectivity of $I$, there exists
+an $\eta: B \to I$ making the following diagram commute
+\begin{equation*}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRGJAF9T1Nd9CKAIzkqtRizYBBLjxAZseAkQBMo6vWatEIAEKzeigURFCxmyToCSXMTCgBzeEVAAzAE4QAtkjIgcEEhC3G6ePogi-oGIav50WAxsABYQEADWIBoS2iAAOrmMaEl0BiAe3kHUAUgAzFlabPkOdF5eJSFlYUix1Yh1IAxYYDlQdHBJ9pniDTr5MDjtFJxAA
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\alpha", hook] \arrow[d, "\gamma"] & B \arrow[ld, "\eta", dashed] \\
+            & I                                               &                             
+\end{tikzcd}	
+\end{equation*}
+In other words $\gamma = \eta \circ \alpha = 
+\Hom{\alpha}{I}(\eta)$ and so $\Hom{\alpha}{I}$ is surjective,
+which shows that $\Hom{-}{I}$ is an exact functor.
+
+Now, suppose $\Hom{-}{I}$ is an exact functor. We will show $I$
+is an injective $R$-module. Let $\alpha: A\to B$ be an injective
+$R$-morphism and $\gamma: A \to I$ an $R$-morphism.
+We have that
+$0 \to A \xrightarrow{\alpha} B \xrightarrow{q} B/\alpha(A) \to 0$
+is a short exact sequence. Since $\Hom{-}{I}$ is an exact functor,
+we obtain that
+\begin{equation*}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRGJAF9T1Nd9CKAIzkqtRizYAdKQAkIAW2ABBTsACSnLjxAZseAkQDMo6vWatEIGfKUBhNZu299AogBZT4i2w7cX-IYoAExe5pJWNorAAEKOWpxiMFAA5vBEoABmAE6KSCYgOBBIwf4gOXmIoYXFiJ7eEdZy0TIARjA4dPEg1Ax07QwACnwGgiDZWCkAFjjO5bkKSPVFSCINlk22wDKMaFNdGmpavf0wQyNuVhPTs2UVi4hrK4jEiZxAA
+\begin{tikzcd}[row sep=large,column sep=huge]
+0 & \Hom{A}{I} \arrow[l] & \Hom{B}{I} \arrow[l, "\Hom{\alpha}{I}{}"'] &
+\Hom{B/\alpha(A)}{I} \arrow[l, "\Hom{q}{I}"'] & 0 \arrow[l]
+\end{tikzcd}
+\end{equation*}
+is exact and hence $\Hom{\alpha}{I}$ is surjective. So there
+exists some $\eta \in \Hom{B}{I}$, such that
+$\gamma = \Hom{\alpha}{I}(\eta) = \eta \circ \alpha$.
+So we get that the following diagram commutes:
+\begin{equation*}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRGJAF9T1Nd9CKAIzkqtRizYBBLjxAZseAkQBMo6vWatEIAEKzeigURFCxmyToCSXMTCgBzeEVAAzAE4QAtkjIgcEEhC3G6ePogi-oGIav50WAxsABYQEADWIBoS2iAAOrmMaEl0BiAe3kHUAUgAzFlabPkOdF5eJSFlYUix1Yh1IAxYYDlQdHBJ9pniDTr5MDjtFJxAA
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\alpha", hook] \arrow[d, "\gamma"] & B \arrow[ld, "\eta", dashed] \\
+            & I                                               &                             
+\end{tikzcd}	
+\end{equation*}
+and hence $I$ is injective.
+
+\subsection*{(3)}
+
+To see this diagram commute, it suffices to show every square
+commutes. The lower left square commutes trivially, the other
+squares are of the form
+\begin{equation*}
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AJCAW2AAKAfWABrALQBGAL7TgASSGjpIaaXSZc+QijKSqtRizace-YWKmyFIiTJVqN2PASKTyB+s1aIO3PoJKcorKquogGM7abqT61F7GvqYBwso2lvaqBjBQAObwRKAAZgBOfEjuIDgQSGSG3ibssAw4dLZSpAAEdg7hpeWIddVIAEzxRj4gUO3u3b3FZbxIAMzUw4hj9Yl+za22XT1hCwOV66tbk9MZB1ZZ0kA
+\begin{tikzcd}
+\Hom{P_{k-1}}{I^k} \arrow[r, "{d_{k-1, k}}"]
+& \Hom{P_k}{I^k}                                    \\
+\Hom{P_{k-1}}{I^{k-1}} \arrow[u, "{\delta_{k-1, k-1}}"] \arrow[r, "{d_{k-1,
+k-1}}"] & \Hom{P_k}{I^{k-1}} \arrow[u, "{\delta_{k, k-1}}"]
+\end{tikzcd}
+\end{equation*}
+Where we define $P_{-1} = M$ and $I^{-1} = N$.
+This diagram commutes, since for any
+$\phi \in \Hom{P_{k-1}}{I^{k-1}}$, 
+$$d_{k-1, k} \circ \delta_{k-1, k-1}(\phi) =
+(\iota^{k-1} \circ \phi) \circ p_k
+= \iota^{k-1} \circ (\phi \circ p_k)
+= \delta_{k, k-1} \circ \delta_{k-1, k-1}(\phi)
+$$
+Hence the diagram commutes.
+
+Before showing that the rows and columns which are not blue
+are exact, let's
+first show two claims, for which I am not sure whether we proved
+them in class or not
+\begin{claim}
+	If $\{0 \to B_k \xrightarrow{\iota_k} A_k
+	\xrightarrow{\beta_{k-1}} B_{k-1} \to 0\}_{k \in \Z}$
+	is a collection of short exact sequences, then
+	$$\cdots \xrightarrow{\alpha_k} A_k \xrightarrow{\alpha_{k-1}}
+	A_{k-1} \xrightarrow{\alpha_{k-2}}
+	A_{k-2} \xrightarrow{\alpha_{k-3}} \cdots $$
+	where $\alpha_k = \iota_k \circ \beta_k$, is an exact sequence.
+\end{claim}
+\begin{proof}
+	We have that for all $k \in \Z$
+	$$\im \alpha_k = \im(\iota_k \circ \beta_k) = \im \iota_k
+	= \ker \beta_{k-1} = \ker(\iota_{k-1} \circ \beta_{k-1})
+	= \ker \alpha_{k-1}$$.
+	We used the fact that $\iota_k$ is injective 
+	and $\beta_k$ is surjective for all $k \in \Z$.
+\end{proof}
+
+\begin{claim}
+	If a functor $\mathrm{Mod}_R \to \mathrm{Mod}_R$ is exact,
+	it preserves exactness of long exact sequences.
+\end{claim}
+\begin{proof}
+If the sequence
+$$\cdots \xrightarrow{\alpha_k} A_k \xrightarrow{\alpha_{k-1}}
+A_{k-1} \xrightarrow{\alpha_{k-2}}
+A_{k-2} \xrightarrow{\alpha_{k-3}} \cdots $$
+is exact, then $0 \to \ker(\alpha_k) \xrightarrow{\iota_k} A_k
+\xrightarrow{\beta_k} \ker(\alpha_{k-1}) \to 0$ is exact
+for all $k \in \Z$, where
+$\iota_k$ is the inclusion map and
+$\beta_k$ is just $\alpha_{k-1}$ corestricted to
+$\ker(\alpha_{k-1})$. If $F: \mathrm{Mod}_R \to \mathrm{Mod}_R$
+is exact, then 
+$$0 \to F(\ker(\alpha_k)) \xrightarrow{F\iota_k} F(A_k)
+\xrightarrow{F\beta_k} F(\ker(\alpha_{k-1})) \to 0$$
+is exact for all $k \in \Z$ and so by Claim 1,
+$$\cdots \xrightarrow{F\iota_k\circ F\beta_k}
+F(A_k) \xrightarrow{F\iota_{k-1}
+\circ F\beta_{k-1}}
+F(A_{k-1}) \xrightarrow{F\iota_{k-2}\circ F\beta_{k-2}} \cdots$$
+is exact. Furthermore, since $F$ is a functor,
+$F\iota_k\circ F\beta_k = F(\iota_k \circ \beta_k) = F\alpha_k$ for
+all $k$ and hence we deduce
+$$\cdots \xrightarrow{F\alpha_k}
+F(A_k) \xrightarrow{F\alpha_{k-1}}
+F(A_{k-1}) \xrightarrow{F\alpha_{k-2}} \cdots$$
+is exact. We get the same result for contravariant functors.
+\end{proof}
+
+Now, since $\Hom{-}{I}$ is exact when $I$ is injective, and
+$\Hom{P}{-}$ is exact when $P$ is projective (Remark 5.4.2), we get
+by Claim 2, that the rows and columns of the diagram which are
+not blue are exact, since they are images of exact sequences by
+these two functors.
+
+\subsection*{(4)}
+
+We have that $H^0(\Hom{M}{I^\bullet}) = \ker \delta_{-1, 0}$
+and $H^0(\Hom{P_\bullet}{N}) = \ker d_{0, -1}$.
+\begin{equation*}
+	\ker \delta_{-1, 0} = \ker(d_{-1, 1}\circ \delta_{-1, 0})
+	= \ker(\delta_{0, 0} \circ d_{-1, 0})
+	= d_{-1, 0}^{-1}(\ker \delta_{0, 0})
+\end{equation*}
+We used that $d_{-1, 1}$ is injective, since rows are exact and
+the commutativity of the diagram. We also have that
+\begin{equation*}
+	\ker d_{0, -1} = \ker(\delta_{1, -1}\circ d_{0, -1})
+	= \ker(d_{0, 0} \circ \delta_{0, -1})
+	= \delta_{0, -1}^{-1}(\ker d_{0, 0})
+\end{equation*}
+Similarly, we used the injectivity of $\delta_{1, -1}$.
+Hence we have that
+\begin{align*}
+	d_{-1, 0}(H^0(\Hom{M}{I^\bullet}))
+	&= d_{-1, 0}(d_{-1, 0}^{-1}(\ker \delta_{0, 0}))
+	= \ker \delta_{0, 0} \cap \im d_{-1, 0}\\
+	&= \ker{\delta_{0, 0}} \cap \ker d_{0, 0}
+	= \im \delta_{0, 1} \cap \ker d_{0, 0}\\
+	&= \delta_{0, -1}(\delta_{0, -1}^{-1}(\ker(d_{0, 0})))
+	= \delta_{0, -1}(H^0(\Hom{P_\bullet}{N}))
+\end{align*}
+Since $d_{-1, 0}$ and $\delta_{0, -1}$ are injective, we get that
+\begin{equation*}
+	H^0(\Hom{M}{I^\bullet}) \cong
+	d_{-1, 0}(H^0(\Hom{M}{I^\bullet}))
+	= \delta_{0, -1}(H^0(\Hom{P_\bullet}{N}))
+	\cong H^0(\Hom{P_\bullet}{N})
+\end{equation*}
+
+\subsection*{(5)}
+
+Let $C^0 := \Hom{P_0}{I^0}$ and
+$C^1 := \Hom{P_1}{I^0} \oplus \Hom{P_0}{I^1}$. We also define
+$\Delta^0: C^0 \to C^1$ by 
+$\Delta^0(x) = (d_{0, 0}(x), \delta_{0, 0}(x))$.
+Now, let
+\begin{align*}
+	\alpha: H^1(\Hom{M}{I^\bullet}) =
+	\ker \delta_{-1, 1}/\im \delta_{-1, 0} &\to \coker(\Delta^0)
+	= C^1/\im \Delta^0\\
+	[x] &\mapsto [(0, d_{-1, 1}(x))]
+\end{align*}
+then $\alpha$ is well defined, indeed, suppose 
+$[x] = [y] \in H^1(\Hom{M}{I^\bullet})$, then
+let $z \in \Hom{M}{I^0}$ such that $x - y = \delta_{-1, 0}(z)$.
+So we have that
+\begin{align*}
+	(0, d_{-1, 1}(x)) - (0, d_{-1, 1}(y)) &= 
+	(0, d_{-1, 1}(x - y))\\
+	&= (0, d_{-1, 1}\circ\delta_{-1, 0}(z))\\
+	&= (0, \delta_{0, 0}\circ d_{-1, 0}(z))\\
+	&= (d_{0, 0}\circ d_{-1, 0}(z),
+	\delta_{0, 0}\circ d_{-1, 0}(z))\\
+	&= \Delta^0(d_{-1, 0}(z)) \in \im \Delta^0
+\end{align*}
+and hence $[(0, d_{-1, 1}(x))] = [(0, d_{-1, 1}(y))]$.
+
+We will now show that $\alpha$ is injective. Let $[x], [y]
+\in H^1(\Hom{M}{I^\bullet})$ such that
+$\alpha([x]) = \alpha([y])$. Then
+\begin{align*}
+	[(0, d_{-1, 1}(x))] = [(0, d_{-1, 1}(y))]
+	&\implies (0, d_{-1, 1}(x - y)) \in \im \Delta^0\\
+	&\implies d_{-1, 1}(x - y) \in \im \delta_{0, 0}
+	= \ker \delta_{0, 1}\\
+	&\implies x - y \in \ker \delta_{0, 1} \circ d_{-1, 1}
+	= \ker d_{-1, 0} \circ \delta_{-1, 1} 
+	= \ker \delta_{-1, 1} = \im \delta_{-1, 0}
+\end{align*}
+and so $[x] = [y]$, which shows $\alpha$ is injective.
+
+Similarly, we define
+\begin{align*}
+	\beta: H^1(\Hom{P_\bullet}{N}) =
+	\ker d_{1, -1}/\im d_{0,-1} &\to \coker(\Delta^0)
+	= C^1/\im \Delta^0\\
+	[x] &\mapsto [(\delta_{1, -1}(x), 0)]
+\end{align*}
+which is also well defined and injective -- the proof of that is
+symmetric to the previous reasoning.
+
+Let's now show that $\im \alpha = \im \beta$.
+Let $\alpha([x]) \in \im \alpha$, then $\alpha([x])
+= [(0, d_{-1, 1}(x))]$
+We have that $\delta_{0, 1} \circ d_{-1, 1}(x)
+= d_{-1, 2}\circ \delta_{-1, 1}(x) = 0$, since
+$x \in \ker \delta_{-1, 1}$, and hence $d_{-1, 1}(x) \in 
+\ker \delta_{0, 1} = \im \delta_{0, 0}$, so let $y \in 
+\Hom{P_0}{I^0} = C^0$ such that $d_{-1, 1}(x) = \delta_{0, 0}(y)$.
+We have that
+\begin{equation*}
+	[(0, d_{-1, 1}(x))] =
+	[(0, d_{-1, 1}(x)) - \Delta^0(y)] =
+	[(-d_{0, 0}(y), 0)]
+\end{equation*}
+Furthermore,
+\begin{equation*}
+	\delta_{1, 0}\circ d_{0, 0}(y) = d_{0, 1} \circ \delta_{0,0}(y)
+	= d_{0, 1} \circ d_{-1, 1}(x) = 0
+\end{equation*}
+hence $d_{0, 0}(y) \in \ker \delta_{1, 0} = \im \delta_{1, -1}$
+and so there exists $z \in \Hom{P_1}{N}$ such that
+$d_{0, 0}(y) = \delta_{1, -1}(z)$.
+Hence we deduce
+\begin{equation*}
+	\alpha([x]) = [(0, d_{-1, 1}(x))] = 
+	[(-d_{0, 0}(y), 0)] = [(\delta_{1, -1}(x), 0)]
+	= \beta([-z])
+\end{equation*}
+and so $\im \alpha \subseteq \im \beta$.
+Using a symmetric reasoning, we deduce
+$\im \beta \subseteq \im \alpha$ and hence
+$\im \alpha = \im \beta$.
+Since both $\alpha$ and $\beta$ are injective, we deduce
+\begin{equation*}
+	H^1(\Hom{M}{I^\bullet}) \cong \im \alpha = \im \beta
+	\cong H^1(\Hom{P_{\bullet}}{N})
+\end{equation*}
+
+\end{document}
