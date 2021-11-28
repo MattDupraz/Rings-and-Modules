@@ -1,0 +1,113 @@
+\documentclass{article}
+
+\usepackage{amssymb, amsmath, amsfonts, amsthm}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{tikz-cd}
+
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Ann}{Ann}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\title{Exercise sheet 8 - Bonus exercise}
+\author{Matthew Dupraz}
+
+\begin{document}
+	
+\maketitle
+
+\subsection*{(1)}
+
+Let $\frac{p}{q} \in K$, where $p \in R$, $q \in R^\times$.
+Let $a := p \prod_{g \in G\setminus\{\id\}} g\cdot q$ and
+$b := \prod_{g \in G}g \cdot q$.
+We have that for all $g \in G$, $g \cdot q \neq 0$, because $G$ acts
+on $K$ by ring automorphisms. Hence $\frac{a}{b} = \frac{p}{q}$.
+Furthermore, $a \in R$, since for all $g \in G$, $g \cdot q \in R$,
+and $b \in S^\times$, since $b \in R^\times$ and for any $h \in G$,
+\begin{equation*}
+	h \cdot b = h \cdot \prod_{g \in G} g \cdot q
+	= \prod_{g \in G} hg \cdot q
+	= \prod_{g' \in hG} g' \cdot q
+	= \prod_{g' \in G} g' \cdot q = b,
+\end{equation*}
+hence $b \in L$. So we have that $\frac{a}{b}$ is of the desired form.
+
+\subsection*{(2)}
+
+Let $\frac{a}{b} \in L$ be in the form specified in (1), i.e. with $a \in R$
+and $b \in S^\times$. Since $L = K^G$, we get for all $g \in G$,
+\begin{equation*}
+	\frac{a}{b} = g \cdot \frac{a}{b} = \frac{g \cdot a}{g \cdot b}
+	= \frac{g \cdot a}{b}
+\end{equation*}
+and hence $g\cdot a = a$. We deduce that $a \in L$ and so $a \in S$.
+Hence any element of $L$ can be written in the form $\frac{a}{b}$, where
+$a \in S$, $b \in S^\times$. Hence $L \subset \Frac(S)$,
+but because $L$ is a field and $\Frac(S)$ is the smallest field containing $S$,
+we get that $L = \Frac(S)$.
+
+\subsection*{(3)}
+
+Let $l \in L$, which is integral over $S$, then there exists a monic polynomial
+$p(x) \in S[x]$ such that $p(l) = 0$. Hence $l$ is also integral over $R$,
+since $p(x)$ can be seen as a monic polynomial in $R[x]$.
+But then, since $R$ is integrally closed, $l \in R$ and hence
+$l \in R \cap L = S$. We conclude that $S$ is integrally closed.
+
+\subsection*{(4)}
+
+Let $\zeta = e^{2\pi i/n}$. Define
+\begin{align*}
+	\phi: \C(x, y) &\to \C(x, y)\\
+	f &\mapsto f(\zeta x, \zeta y)
+\end{align*}
+then $\phi$ is an automorphism. Indeed, it is a field homomorphism, since
+\begin{equation*}
+	\phi(f \cdot g) = (f \cdot g) (\zeta x, \zeta y)
+= f(\zeta x, \zeta y) \cdot g (\zeta x, \zeta y)
+= \phi(f)\phi(g)
+\end{equation*}
+and 
+\begin{equation*}
+	\phi(f + g) = (f + g) (\zeta x, \zeta y)
+= f(\zeta x, \zeta y) + g (\zeta x, \zeta y)
+= \phi(f) + \phi(g).
+\end{equation*}
+Furthermore, it is bijective, since $f \mapsto f(\zeta^{-1}x, \zeta^{-1}y)$ is 
+its inverse. Hence $\phi$ is an automorphism.
+
+Consider the (natural) action of $G = \langle \phi \rangle$ on $\C(x, y)$.
+We have that $|G| = n$, since $o(\phi) = n$ as $\zeta$ is an $n$-th primitive
+root of unity.
+We will show $\C[x, y]^G = \C[x^n, x^{n-1}y, \dots, y^n] =: S$.
+We clearly have that $S \subseteq \C[x, y]^G$, since
+$x^n, x^{n-1}y, \dots, y^n$ are all fixed by $\phi$.
+
+Let $p = \sum_{i,j\leq r} a_{ij} x^i y^j \in \C[x, y]^G$
+We have that
+\begin{equation*}
+\sum_{i,j\leq r} a_{ij} x^i y^j = 
+\phi\left(\sum_{i,j\leq r} a_{ij} x^i y^j\right)
+= \sum_{i,j\leq r} \phi(a_{ij} x^i y^j)
+= \sum_{i,j\leq r} \zeta^{i+j}a_{ij} x^i y^j
+\end{equation*}
+and hence $\forall i,j \in \{0, \dots, r\}$, 
+$a_{ij} = \zeta^{i+j}a_{ij}$, from which we deduce $a_{ij} = 0$ if $i+j \not\in 
+(n)$. We get that $p \in S$ and so $\C[x, y]^G \subseteq S$.
+
+So we have that $\C[x, y] \cap \C(x, y)^G = \C[x, y]^G = S$. Since $\C[x,y]$ is
+a UFD (by the transfer theorem), we get that $\C[x,y ]$ is integrally closed
+(Example 6.2.8). Hence using the previous points of this exercise,
+we deduce $S$ is also integrally closed.
+
+
+\end{document}
