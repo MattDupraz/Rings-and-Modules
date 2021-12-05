@@ -1,0 +1,150 @@
+\documentclass{article}
+
+\usepackage{amssymb, amsmath, amsfonts, amsthm}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{tikz-cd}
+
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Ann}{Ann}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\tensor}{\otimes}
+\newcommand{\quotient}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\isom}{\cong}
+
+\title{Exercise sheet 9 - Bonus exercise}
+\author{Matthew Dupraz}
+
+\begin{document}
+	
+\maketitle
+
+\subsection*{(1)}
+
+Consider the following free resolution of $M$:
+
+% https://q.uiver.app/?q=WzAsOSxbMiwwLCJSXntcXG9wbHVzMn0iXSxbMSwwLCJSIl0sWzAsMCwiMCJdLFszLDAsIk0iXSxbNCwwLCIwIl0sWzIsMSwiKGYsZykiXSxbMywxLCJ4ZiArIHlnIl0sWzEsMiwiZiJdLFsyLDIsIih5ZiwgLXhmKSJdLFsyLDFdLFsxLDBdLFswLDNdLFszLDRdLFs3LDgsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNSw2LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+\[\begin{tikzcd}[row sep=tiny]
+	0 & R & R \oplus R & M & 0 \\
+	&& {(f,g)} & {xf + yg} \\
+	& f & {(yf, -xf)}
+	\arrow[from=1-1, to=1-2]
+	\arrow["\alpha", from=1-2, to=1-3]
+	\arrow["\beta", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[maps to, from=3-2, to=3-3]
+	\arrow[maps to, from=2-3, to=2-4]
+\end{tikzcd}\]
+By removing $M$ and applying the $-\tensor_R N$ functor, we get
+% https://q.uiver.app/?q=WzAsNixbMiwwLCJSXntcXG9wbHVzMn1cXHRlbnNvcl9SIE4iXSxbMSwwLCJSXFx0ZW5zb3JfUiBOIl0sWzAsMCwiMCJdLFszLDAsIjAiXSxbMSwxLCJmXFx0ZW5zb3IgbiJdLFsyLDEsIih5ZiwteGYpXFx0ZW5zb3IgbiJdLFsyLDFdLFsxLDBdLFswLDNdLFs0LDUsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XV0=
+\[\begin{tikzcd}[row sep=tiny]
+	0 & {R\tensor_R N} & {(R \oplus R)\tensor_R N} & 0 \\
+	& {f\tensor n} & {(yf,-xf)\tensor n}
+	\arrow[from=1-1, to=1-2]
+	\arrow["{\alpha \tensor_R N}", from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[maps to, from=2-2, to=2-3]
+\end{tikzcd}\]
+But we have that for all $f\tensor n \in R \tensor_R N$, 
+\begin{align*}
+	\alpha\tensor_R N(f\tensor n) &= \alpha(f)\tensor n\\
+	&= (yf, -xf)\tensor n\\
+	&= y(f, 0)\tensor n -x(0, f)\tensor n\\
+	&= (f, 0)\tensor yn - (0, f) \tensor xn\\
+	&= 0
+\end{align*}
+since $yn = xn = 0$ in $N = \quotient{R}{M} = \quotient{k[x, y]}{(x, y)}$.
+Hence $\alpha \tensor_R N = 0$, so by calculating the homology, we get
+\begin{align*}
+	\Tor_0^R(M, N) &\isom (R \oplus R)\tensor_R N
+	= (R\oplus R)\tensor_R \quotient{R}{M}
+	\isom \quotient{R\oplus R}{M(R\oplus R)}\\
+	&\isom \quotient{R}{M} \oplus \quotient{R}{M} = N\oplus N\\
+	\Tor_1^R(M, N) &\isom R \tensor_R N \isom N
+\end{align*}
+and for all $i > 1$, we get that $\Tor_i^R(M, N) = 0$
+
+\subsection*{(2)}
+
+By Exercise 7, if $N$ were flat, then we would have that $\Tor_1^R(M, N) = 0$,
+however that's not true by what we calculated in part (1), and so we conclude
+$N$ is not flat.
+
+\subsection*{(3)}
+
+Consider the following free resolution of $N = \quotient{R}{M}$
+\[
+\begin{tikzcd}[row sep=tiny]
+	0 & R & R\oplus R & R & N & 0\\
+	&& (f, g) & xf + yg\\
+	& f & (yf, -xf)\\
+	\arrow[from=1-1, to=1-2]
+	\arrow["\alpha", from=1-2, to=1-3]
+	\arrow["\beta", from=1-3, to=1-4]
+	\arrow["q", from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[maps to, from=2-3, to=2-4]
+	\arrow[maps to, from=3-2, to=3-3]
+\end{tikzcd}
+\]
+This sequence is indeed exact, as $\im \beta = (x,y) = M = \ker q$.
+Removing the $N$ and applying the $-\tensor_R N$ functor, we get
+\[
+\begin{tikzcd}[row sep=tiny]
+	0 & R\tensor_R N & (R\oplus R)\tensor_R N & R\tensor_R N & 0\\
+	&& (f, g)\tensor n & (xf + yg)\tensor n\\
+	& f\tensor n & (yf, -xf)\tensor n\\
+	\arrow[from=1-1, to=1-2]
+	\arrow["\alpha\tensor_R N", from=1-2, to=1-3]
+	\arrow["\beta\tensor_R N", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[maps to, from=2-3, to=2-4]
+	\arrow[maps to, from=3-2, to=3-3]
+\end{tikzcd}
+\]
+As before, $\alpha\tensor_R N = 0$ and also $\beta\tensor_R N = 0$, since for
+any $(f, g)\tensor n \in (R\oplus R)\tensor_R N$,
+\begin{align*}
+	\beta\tensor_R N((f, g)\tensor n) &= \beta(f, g) \tensor n\\
+	&= (xf + yg) \tensor n\\
+	&= x f\tensor n + y g \tensor n\\
+	&= f \tensor xn + g \tensor yn\\
+	&= 0
+\end{align*}
+So we can calculate the homology to get
+\begin{align*}
+	\Tor_0^R(N, N) &\isom R \tensor_R N \isom N\\
+	\Tor_1^R(N, N) &\isom (R \oplus R)\tensor_R N \isom N \oplus N\\
+	\Tor_2^R(N, N) &\isom R \tensor_R N \isom N
+\end{align*}
+and $\Tor_i^R(N, N) = 0$ for all $i > 2$.
+
+
+%\[
+%\begin{tikzcd}
+%	& M \tensor_R N & R \tensor_R N & N \tensor_R N & 0 \\
+%	& \Tor_1^R(M, N) & \Tor_1^R(R, N) &\Tor_1^R(N, N)\\
+%	\cdots & \Tor_2^R(M, N) & \Tor_2^R(R, N) &\Tor_2^R(N, N) \\
+%	\arrow[from=1-2, to=1-3]
+%	\arrow[from=1-3, to=1-4]
+%	\arrow[from=1-4, to=1-5]
+%	\arrow[from=2-2, to=2-3]
+%	\arrow[from=2-3, to=2-4]
+%	\arrow[from=2-4, to=1-2, out=5, in=185, looseness=1.5]
+%	\arrow[from=3-2, to=3-3]
+%	\arrow[from=3-3, to=3-4]
+%	\arrow[from=3-4, to=2-2, out=5, in=185, looseness=1.5]
+%	\arrow[from=3-1, to=3-2]
+%\end{tikzcd}
+%\]
+\end{document}
