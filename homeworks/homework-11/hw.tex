@@ -1,0 +1,83 @@
+\documentclass{article}
+
+\usepackage{amssymb, amsmath, amsfonts, amsthm}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{tikz-cd}
+
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Ann}{Ann}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\tensor}{\otimes}
+\newcommand{\quotient}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\isom}{\cong}
+
+\title{Exercise sheet 9 - Bonus exercise}
+\author{Matthew Dupraz}
+
+\begin{document}
+	
+\maketitle
+
+Let $F$ be a field and $I = (f) \subseteq F[x]$ a principal ideal.
+We can write $f = x^rg$ for some $r \in \N$ and $h \not\in (x)$.
+
+\subsection*{(1)}
+
+We consider the localization $F[x]_x$. Let $\phi: F[x] \to F[x]_x$ be the
+structure homomorphism. We will show that
+$I^{ec} = (g)$.
+
+By proposition 7.3.9, we have that
+\begin{align*}
+	I^{ec} &= \bigcup_{k \in \N} (I : x^k)\\
+	&= \bigcup_{k \in \N} \{h \in F[x] : x^kh \in I \}\\
+	&= \{h \in F[x] : \exists k \in \N, x^kh \in I\}\\
+	&= \{h \in F[x] : \exists k \in \N, x^rg \mid x^kh\}\\
+	&= \{h \in F[x] : \exists k \in \N, x^r \mid x^kh
+	\textrm{ and } g \mid h\}
+\end{align*}
+The last equality follows from the fact $g \not\in (x)$ and so $x^r$ 
+and $g$ are coprime, hence $x^rg \mid x^kh$ iff $x^r \mid x^kh$ and
+$g \mid x^k h$. For the same reason, $g$ and $x^k$ are coprime and so
+$g \mid x^k h$ iff $g \mid h$. We have that $x^r \mid x^k h$ for any $k$
+large enough and so we get that
+\begin{equation*}
+	I^{ec} = \{h \in F[x]: g \mid h\} = (g)
+\end{equation*}
+This implies that $I^{ec} = I$ iff $r = 0$ (that is if $f \not\in (x)$).
+
+\subsection*{(2)}
+
+Now we consider the localization $F[x]_{(x)}$. Let now
+$\phi: F[x] \to F[x]_{(x)}$. We will show that $I^{ec} = (x^r)$.
+
+By proposition 7.3.0 we have that
+\begin{align*}
+	I^{ec} &= \bigcup_{h \in F[x]\setminus(x)} (I : h)\\
+	&= \bigcup_{h \in F[x]\setminus(x)} \{p \in F[x] : ph \in I \}\\
+	&= \{p \in F[x] : \exists h \in F[x]\setminus(x), ph \in I \}\\
+	&= \{p \in F[x] : \exists h \in F[x]\setminus(x), x^rg \mid ph \}\\
+	&= \{p \in F[x] : \exists h \in F[x]\setminus(x), g \mid ph,
+	x^r \mid p \}
+\end{align*}
+Again, the last equality follows from the fact $g \not\in (x)$ and so 
+$g$ and $x^r$ are coprime. We also have $h \not\in (x)$, hence $h$ and
+$x^r$ are coprime, so $x^r \mid ph$ iff $x^r \mid p$.
+We have that $g | ph$ for example for $h = g \not\in (x)$, hence we get
+that
+\begin{equation*}
+	I^{ec} = \{p \in F[x] : x^r | p\} = (x^r)
+\end{equation*}
+This implies that $I^{ec} = i$ iff $g = 0$ (that is if $f = x^r$).
+\end{document}

@@ -248,7 +248,8 @@ So we have that
 	\delta_{0, 0}\circ d_{-1, 0}(z))\\
 	&= \Delta^0(d_{-1, 0}(z)) \in \im \Delta^0
 \end{align*}
-and hence $[(0, d_{-1, 1}(x))] = [(0, d_{-1, 1}(y))]$.
+and hence $[(0, d_{-1, 1}(x))] = [(0, d_{-1, 1}(y))]$ and hence
+$\alpha$ is well defined.
 
 We will now show that $\alpha$ is injective. Let $[x], [y]
 \in H^1(\Hom{M}{I^\bullet})$ such that
@@ -271,8 +272,37 @@ Similarly, we define
 	= C^1/\im \Delta^0\\
 	[x] &\mapsto [(\delta_{1, -1}(x), 0)]
 \end{align*}
-which is also well defined and injective -- the proof of that is
-symmetric to the previous reasoning.
+and as before, we show $\beta$ is well defined. Indeed, suppose 
+$[x] = [y] \in H^1(\Hom{P_\bullet}{N})$, then
+let $z \in \Hom{P_0}{N}$ such that $x - y = d_{0, -1}(z)$.
+So we have that
+\begin{align*}
+	(\delta_{1, -1}(x), 0) - (\delta_{1, -1}(y), 0) &= 
+	(\delta_{1, -1}(x - y), 0)\\
+	&= (\delta_{1, -1}\circ d_{0, -1}(z), 0)\\
+	&= (d_{0, 0}\circ \delta_{0, -1}(z), 0)\\
+	&= (d_{0, 0}\circ \delta_{0, -1}(z),
+	\delta_{0, 0}\circ \delta_{0, -1}(z))\\
+	&= \Delta^0(\delta_{0, -1}(z)) \in \im \Delta^0
+\end{align*}
+and hence $[(\delta_{1, -1}(x), 0)] = [(\delta_{1, -1}(y), 0)]$
+and hence
+$\beta$ is well defined.
+
+We will now show that $\beta$ is injective. Let $[x], [y]
+\in H^1(\Hom{P_\bullet}{N})$ such that
+$\beta([x]) = \beta([y])$. Then
+\begin{align*}
+	[(\delta_{1, -1}(x), 0)] = [(\delta_{1, -1}(y), 0)]
+	&\implies (\delta_{1, -1}(x - y), 0) \in \im \Delta^0\\
+	&\implies \delta_{1, -1}(x - y) \in \im d_{0, 0}
+	= \ker d_{1, 0}\\
+	&\implies x - y \in \ker d_{1, 0} \circ \delta_{1, -1}
+	= \ker \delta_{0, -1} \circ d_{1, -1} 
+	= \ker d_{1, -1} = \im d_{0, -1}
+\end{align*}
+and so $[x] = [y]$, which shows $\beta$ is injective.
+
 
 Let's now show that $\im \alpha = \im \beta$.
 Let $\alpha([x]) \in \im \alpha$, then $\alpha([x])
@@ -299,13 +329,46 @@ $d_{0, 0}(y) = \delta_{1, -1}(z)$.
 Hence we deduce
 \begin{equation*}
 	\alpha([x]) = [(0, d_{-1, 1}(x))] = 
-	[(-d_{0, 0}(y), 0)] = [(\delta_{1, -1}(x), 0)]
+	[(-d_{0, 0}(y), 0)] = [(-\delta_{1, -1}(z), 0)]
 	= \beta([-z])
 \end{equation*}
 and so $\im \alpha \subseteq \im \beta$.
-Using a symmetric reasoning, we deduce
+Using a symmetric reasoning, we also deduce
 $\im \beta \subseteq \im \alpha$ and hence
+$\im \alpha = \im \beta$:
+
+Let $\beta([x]) \in \im \beta$, then $\beta([x])
+= [(\delta_{1, -1}(x), 0)]$
+We have that $d_{1, 0} \circ \delta_{1, -1}(x)
+= \delta_{2, -1}\circ d_{1, -1}(x) = 0$, since
+$x \in \ker d_{1, -1}$, and hence $\delta_{1, -1}(x) \in 
+\ker d_{1, 0} = \im d_{0, 0}$, so let $y \in 
+\Hom{P_0}{I^0} = C^0$ such that
+$\delta_{1, -1}(x) = d_{0, 0}(y)$.
+We have that
+\begin{equation*}
+	[(\delta_{1, -1}(x), 0)] =
+	[(\delta_{1, -1}(x), 0) - \Delta^0(y)] =
+	[(0, -\delta_{0, 0}(y))]
+\end{equation*}
+Furthermore,
+\begin{equation*}
+	d_{0, 1}\circ \delta_{0, 0}(y) = \delta_{1, 0} \circ d_{0,0}(y)
+	= \delta_{1, 0} \circ \delta_{1, -1}(x) = 0
+\end{equation*}
+hence $\delta_{0, 0}(y) \in \ker d_{0, 1} = \im d_{-1, 1}$
+and so there exists $z \in \Hom{M}{I^1}$ such that
+$\delta_{0, 0}(y) = d_{-1, 1}(z)$.
+Hence we deduce
+\begin{equation*}
+	\beta([x]) = [(\delta_{1, -1}(x), 0)] = 
+	[(0, -d_{0, 0}(y))] = [(0, -d_{-1, 1}(z))]
+	= \alpha([-z])
+\end{equation*}
+and so $\im \beta \subseteq \im \alpha$ and hence
 $\im \alpha = \im \beta$.
+
+
 Since both $\alpha$ and $\beta$ are injective, we deduce
 \begin{equation*}
 	H^1(\Hom{M}{I^\bullet}) \cong \im \alpha = \im \beta
